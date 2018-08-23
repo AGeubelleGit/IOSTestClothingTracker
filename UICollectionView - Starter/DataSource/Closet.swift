@@ -14,15 +14,16 @@ class Closet {
     
     var closet: [Clothing.ClothingType: [Clothing]]
     //var notLastTwoWeeksCloset: [Clothing.ClothingType: [Clothing]]
-    //var closetHistory: [Date: [Clothing]]
+    var closetHistory: [Date: [Clothing]]
     
     private init() {
         self.closet = Closet.initMockData()
+        self.closetHistory = Closet.initMockHistory()
     }
 
     // Get functions
     public func getClothing(sectionNumber: Int, sectionIndex: Int) -> Clothing {
-        return self.closet[getDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
+        return self.closet[getClosetDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
     }
     
     // Collection View Data Source functions
@@ -31,17 +32,29 @@ class Closet {
     }
     
     public func getNumClothesInSectionByInt(sectionNumber: Int) -> Int {
-        return self.closet[getDictionaryKeyByInt(index: sectionNumber)]!.count;
+        return self.closet[getClosetDictionaryKeyByInt(index: sectionNumber)]!.count;
     }
     
     public func getSectionTitle(index: Int) -> String {
-        return getDictionaryKeyByInt(index: index).rawValue
+        return getClosetDictionaryKeyByInt(index: index).rawValue
     }
     
-    private func getDictionaryKeyByInt(index: Int) -> Clothing.ClothingType {
+    private func getClosetDictionaryKeyByInt(index: Int) -> Clothing.ClothingType {
         return Array(self.closet.keys)[index]
     }
     
+    // History Table View Data Source functions
+    public func getHistoryNumRows() -> Int {
+        return self.closetHistory.count
+    }
+    
+    public func getHistoryByKey(key: Date) -> [Clothing] {
+        return self.closetHistory[key]!
+    }
+    
+    public func getHistoryDictionaryKeyByInt(index: Int) -> Date {
+        return Array(self.closetHistory.keys)[index]
+    }
     
     // Get Data on init
     private static func loadSavedCloset() -> [Clothing.ClothingType: [Clothing]] {
@@ -65,5 +78,22 @@ class Closet {
         ]
         
         return mockCloset
+    }
+    
+    private static func initMockHistory() -> [Date: [Clothing]] {
+        var mockHistory = [Date: [Clothing]]()
+        mockHistory[Date.init(timeIntervalSince1970: 1534999905)] = [
+            Clothing(name: "flannelshirt", imageId: "flannelshirt", type: Clothing.ClothingType.shirt),
+            Clothing(name: "jeans", imageId: "jeans", type: Clothing.ClothingType.pants)
+        ]
+        mockHistory[Date.init(timeIntervalSince1970: 1534852800)] = [
+            Clothing(name: "kakhis", imageId: "kakhis", type: Clothing.ClothingType.pants),
+            Clothing(name: "flannelshirt", imageId: "flannelshirt", type: Clothing.ClothingType.shirt),
+            Clothing(name: "longshirt", imageId: "longshirt", type: Clothing.ClothingType.shirt),
+            Clothing(name: "shortshirt", imageId: "shortshirt", type: Clothing.ClothingType.shirt),
+            Clothing(name: "sportsshirt", imageId: "sportsshirt", type: Clothing.ClothingType.shirt)
+        ]
+        
+        return mockHistory
     }
 }

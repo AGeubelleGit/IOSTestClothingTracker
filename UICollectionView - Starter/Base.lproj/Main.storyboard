@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -180,7 +181,7 @@
         <!--Clothing History-->
         <scene sceneID="xFn-td-0qs">
             <objects>
-                <viewController title="Clothing History" id="kco-e0-m98" sceneMemberID="viewController">
+                <viewController title="Clothing History" id="kco-e0-m98" customClass="HistoryViewController" customModule="UICollectionView___Starter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yEV-cW-Ykf"/>
                         <viewControllerLayoutGuide type="bottom" id="bZW-og-YvE"/>
@@ -196,31 +197,72 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jh5-dt-AX0">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jh5-dt-AX0">
                                 <rect key="frame" x="0.0" y="50" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZRz-BV-PA4">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="historyCell" id="ZRz-BV-PA4" customClass="HistoryTableViewCell" customModule="UICollectionView___Starter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZRz-BV-PA4" id="588-Lm-7av">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Cell" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04V-hw-o93">
-                                                    <rect key="frame" x="15" y="11" width="345" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04V-hw-o93">
+                                                    <rect key="frame" x="15" y="5" width="345" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="TmS-of-b6a"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RiL-eD-8Mi">
+                                                    <rect key="frame" x="0.0" y="40" width="375" height="100"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="left" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Z0t-EI-P90">
+                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="100"/>
+                                                            <subviews>
+                                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jeans" translatesAutoresizingMaskIntoConstraints="NO" id="SbO-HO-lbg">
+                                                                    <rect key="frame" x="0.0" y="-40" width="149.5" height="100"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="SbO-HO-lbg" secondAttribute="height" multiplier="1.5:1" id="E6b-xf-X8Q"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="SbO-HO-lbg" firstAttribute="height" secondItem="Z0t-EI-P90" secondAttribute="height" id="FAg-Eh-HfM"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Z0t-EI-P90" firstAttribute="height" secondItem="RiL-eD-8Mi" secondAttribute="height" id="002-HI-Suf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Z0t-EI-P90" secondAttribute="trailing" id="4Eo-Ok-c36"/>
+                                                        <constraint firstAttribute="height" constant="100" id="HNP-xh-vi4"/>
+                                                        <constraint firstItem="Z0t-EI-P90" firstAttribute="leading" secondItem="RiL-eD-8Mi" secondAttribute="leading" id="QSc-oG-xZs"/>
+                                                        <constraint firstItem="Z0t-EI-P90" firstAttribute="top" secondItem="RiL-eD-8Mi" secondAttribute="top" id="Tpm-KR-CrW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Z0t-EI-P90" secondAttribute="bottom" id="vk7-Sk-1Lw"/>
+                                                    </constraints>
+                                                </scrollView>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="04V-hw-o93" firstAttribute="top" secondItem="588-Lm-7av" secondAttribute="topMargin" id="ack-Td-3l9"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="04V-hw-o93" secondAttribute="bottom" id="gWa-Ir-HUh"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="04V-hw-o93" secondAttribute="trailing" id="qrb-Dy-nVk"/>
-                                                <constraint firstItem="04V-hw-o93" firstAttribute="leading" secondItem="588-Lm-7av" secondAttribute="leadingMargin" id="u4Z-Fc-IHo"/>
+                                                <constraint firstAttribute="trailing" secondItem="04V-hw-o93" secondAttribute="trailing" constant="15" id="09c-Wu-vOx"/>
+                                                <constraint firstItem="04V-hw-o93" firstAttribute="top" secondItem="588-Lm-7av" secondAttribute="top" constant="5" id="Dul-lh-iKd"/>
+                                                <constraint firstItem="04V-hw-o93" firstAttribute="leading" secondItem="588-Lm-7av" secondAttribute="leading" constant="15" id="Ow1-kI-Yro"/>
+                                                <constraint firstAttribute="trailing" secondItem="RiL-eD-8Mi" secondAttribute="trailing" id="QWK-Me-cFA"/>
+                                                <constraint firstItem="RiL-eD-8Mi" firstAttribute="leading" secondItem="588-Lm-7av" secondAttribute="leading" id="Qng-Jj-Kv2"/>
+                                                <constraint firstItem="RiL-eD-8Mi" firstAttribute="top" secondItem="04V-hw-o93" secondAttribute="bottom" constant="10" id="irc-mF-DB4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="04V-hw-o93" id="txK-GZ-975"/>
+                                            <outlet property="imagesStackView" destination="Z0t-EI-P90" id="TVV-HT-u8o"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -231,15 +273,21 @@
                             <constraint firstAttribute="trailing" secondItem="Fbf-09-Uh4" secondAttribute="trailing" id="Axj-21-2Nn"/>
                             <constraint firstItem="Fbf-09-Uh4" firstAttribute="top" secondItem="yEV-cW-Ykf" secondAttribute="bottom" id="DeN-I3-JUF"/>
                             <constraint firstItem="Jh5-dt-AX0" firstAttribute="top" secondItem="Fbf-09-Uh4" secondAttribute="bottom" id="HJK-NG-fdt"/>
-                            <constraint firstItem="Jh5-dt-AX0" firstAttribute="leading" secondItem="4BZ-8B-nFK" secondAttribute="leadingMargin" id="luq-BC-nNu"/>
+                            <constraint firstAttribute="trailing" secondItem="Jh5-dt-AX0" secondAttribute="trailing" id="S2t-52-UYs"/>
+                            <constraint firstItem="Jh5-dt-AX0" firstAttribute="leading" secondItem="4BZ-8B-nFK" secondAttribute="leading" id="lFZ-ea-6qP"/>
                             <constraint firstItem="bZW-og-YvE" firstAttribute="top" secondItem="Jh5-dt-AX0" secondAttribute="bottom" id="nep-8A-mn0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jh5-dt-AX0" secondAttribute="trailing" id="yaJ-fa-gaB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="historyTable" destination="Jh5-dt-AX0" id="Gp3-hN-gnG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMw-Tr-3OQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="916" y="123.68815592203899"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="jeans" width="112" height="112"/>
+    </resources>
 </document>
