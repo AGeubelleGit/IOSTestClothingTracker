@@ -12,48 +12,23 @@ import Foundation
 class Closet {
     static var sharedInstance = Closet()
     
-    var closet: [Clothing.ClothingType: [Clothing]]
+    private var closet: [Clothing.ClothingType: [Clothing]]
     //var notLastTwoWeeksCloset: [Clothing.ClothingType: [Clothing]]
-    var closetHistory: [Date: [Clothing]]
+    private var closetHistory: [Date: [Clothing]]
     
     private init() {
         self.closet = Closet.initMockData()
         self.closetHistory = Closet.initMockHistory()
     }
 
-    // Get functions
-    public func getClothing(sectionNumber: Int, sectionIndex: Int) -> Clothing {
-        return self.closet[getClosetDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
+    // Closet
+    public func getCloset() -> [Clothing.ClothingType: [Clothing]] {
+        return self.closet
     }
     
-    // Collection View Data Source functions
-    public func getNumSections() -> Int {
-        return self.closet.count
-    }
-    
-    public func getNumClothesInSectionByInt(sectionNumber: Int) -> Int {
-        return self.closet[getClosetDictionaryKeyByInt(index: sectionNumber)]!.count;
-    }
-    
-    public func getSectionTitle(index: Int) -> String {
-        return getClosetDictionaryKeyByInt(index: index).rawValue
-    }
-    
-    private func getClosetDictionaryKeyByInt(index: Int) -> Clothing.ClothingType {
-        return Array(self.closet.keys)[index]
-    }
-    
-    // History Table View Data Source functions
-    public func getHistoryNumRows() -> Int {
-        return self.closetHistory.count
-    }
-    
-    public func getHistoryByKey(key: Date) -> [Clothing] {
-        return self.closetHistory[key]!
-    }
-    
-    public func getHistoryDictionaryKeyByInt(index: Int) -> Date {
-        return Array(self.closetHistory.keys)[index]
+    // History
+    public func getHistory() -> [Date: [Clothing]] {
+        return self.closetHistory
     }
     
     // Get Data on init
@@ -91,6 +66,10 @@ class Closet {
             Clothing(name: "flannelshirt", imageId: "flannelshirt", type: Clothing.ClothingType.shirt),
             Clothing(name: "longshirt", imageId: "longshirt", type: Clothing.ClothingType.shirt),
             Clothing(name: "shortshirt", imageId: "shortshirt", type: Clothing.ClothingType.shirt),
+            Clothing(name: "sportsshirt", imageId: "sportsshirt", type: Clothing.ClothingType.shirt)
+        ]
+        mockHistory[Date.init(timeIntervalSince1970: 1534552800)] = [
+            Clothing(name: "sweatpants", imageId: "sweatpants", type: Clothing.ClothingType.pants),
             Clothing(name: "sportsshirt", imageId: "sportsshirt", type: Clothing.ClothingType.shirt)
         ]
         

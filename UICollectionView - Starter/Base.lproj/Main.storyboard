@@ -121,7 +121,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6vo-hw-l8n">
                                 <rect key="frame" x="16" y="0.0" width="343" height="35"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show recently worn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvD-Pe-Euo">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recently worn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvD-Pe-Euo">
                                         <rect key="frame" x="0.0" y="8.5" width="171.5" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
@@ -280,6 +280,7 @@
                     </view>
                     <connections>
                         <outlet property="historyTable" destination="Jh5-dt-AX0" id="Gp3-hN-gnG"/>
+                        <outlet property="searchBar" destination="Fbf-09-Uh4" id="Whn-yu-TkH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMw-Tr-3OQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

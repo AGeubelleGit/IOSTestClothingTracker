@@ -90,7 +90,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
-        return closet.getNumSections()
+        return closet.getCloset().count
     }
     
     /**
@@ -99,7 +99,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return closet.getNumClothesInSectionByInt(sectionNumber: section)
+        return closet.getCloset()[getClosetDictionaryKeyByInt(index: section)]!.count
     }
     
     /**
@@ -115,7 +115,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         backgroundView.backgroundColor = UIColor.yellow
         collectionViewCell.selectedBackgroundView = backgroundView
         
-        let clothing: Clothing = closet.getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row)
+        let clothing: Clothing = getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row)
         collectionViewCell.label.text = clothing.name
         collectionViewCell.image.image = UIImage(named: clothing.imageId!)
         
@@ -126,7 +126,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
         let endTab: String = "        " // Used to extend bottom border
-        sectionTitleView.sectionTitle = closet.getSectionTitle(index: indexPath.section) + endTab
+        sectionTitleView.sectionTitle = getClosetDictionaryKeyByInt(index: indexPath.section).rawValue + endTab
         sectionTitleView.setBottomBorder()
         return sectionTitleView
     }
@@ -166,10 +166,17 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        print("Selected cell named: \(closet.getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row).name)")
+        print("Selected cell named: \(getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row).name)")
     }
     
     // MARK: - Helper methods
+    private func getClosetDictionaryKeyByInt(index: Int) -> Clothing.ClothingType {
+        return Array(closet.getCloset().keys)[index]
+    }
+    
+    private func getClothing(sectionNumber: Int, sectionIndex: Int) -> Clothing {
+        return closet.getCloset()[getClosetDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
+    }
     
     // MARK: - UIToolbar: user interaction
     @IBAction func addButtonTapped(_ sender: Any)
@@ -187,7 +194,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     */
     @IBAction func removeButtonTapped(_ sender: Any)
     {
-        print(closet.closet)
+        print(closet.getCloset())
         // Do something.
         
     } // end func removeButtonTapped
