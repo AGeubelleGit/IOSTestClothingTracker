@@ -44,7 +44,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     let sectionTitleIdentifier: String = "SectionTitleView"
     
     // Data source
-    let closet = Closet.sharedInstance
+    var clothingDictionary: [ClothingType: [Clothing]] = [ClothingType: [Clothing]]()
     
     // MARK: - UIViewController delegate
     
@@ -70,10 +70,20 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        collectionView.delegate = self      // 1)
-        collectionView.dataSource = self    // 2)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        collectionView.allowsMultipleSelection = true   // 3)
+        collectionView.allowsMultipleSelection = true
+        
+        reloadClothingData()
+    }
+    
+    func reloadClothingData() {
+        do {
+            clothingDictionary = try ClothingService.getClothesDictionary()
+        } catch {
+            print("Error in getting clothes")
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -90,7 +100,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
-        return closet.getCloset().count
+        return clothingDictionary.count
     }
     
     /**
@@ -99,7 +109,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return closet.getCloset()[getClosetDictionaryKeyByInt(index: section)]!.count
+        return clothingDictionary[getClothingDictionaryKeyByInt(index: section)]!.count
     }
     
     /**
@@ -126,7 +136,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
         let endTab: String = "        " // Used to extend bottom border
-        sectionTitleView.sectionTitle = getClosetDictionaryKeyByInt(index: indexPath.section).rawValue + endTab
+        sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(index: indexPath.section).rawValue + endTab
         sectionTitleView.setBottomBorder()
         return sectionTitleView
     }
@@ -170,12 +180,12 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     // MARK: - Helper methods
-    private func getClosetDictionaryKeyByInt(index: Int) -> Clothing.ClothingType {
-        return Array(closet.getCloset().keys)[index]
+    private func getClothingDictionaryKeyByInt(index: Int) -> ClothingType {
+        return Array(clothingDictionary.keys)[index]
     }
     
     private func getClothing(sectionNumber: Int, sectionIndex: Int) -> Clothing {
-        return closet.getCloset()[getClosetDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
+        return clothingDictionary[getClothingDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
     }
     
     // MARK: - UIToolbar: user interaction
@@ -187,17 +197,14 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     /**
-     When a user taps the "Remove" button, we: 1) remove the data items
-     from the data source which correspond to the currently selected
-     UICollectionViewCell's; and, 2) we delete the currently selected
-     UICollectionViewCell's.
+     When a user taps the "Remove" button
     */
     @IBAction func removeButtonTapped(_ sender: Any)
     {
-        print(closet.getCloset())
+        print(clothingDictionary)
         // Do something.
         
-    } // end func removeButtonTapped
+    }
     
     /**
      Called when the "Confirm" button is tapped.

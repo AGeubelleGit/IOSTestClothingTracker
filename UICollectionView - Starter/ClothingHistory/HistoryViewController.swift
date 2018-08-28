@@ -18,8 +18,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     let cellIdentifier: String = "historyCell"
     
     // Data source
-    let closet = Closet.sharedInstance
-    var filteredCloset: [Date: [Clothing]] = [Date: [Clothing]]()
+    var clothingHistory: [ClothingHistory] = [ClothingHistory]()
+    var filteredHistory: [ClothingHistory] = [ClothingHistory]()
+    let limit: Int64 = 10
     
     var isSearching = false
     
@@ -32,6 +33,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
+        
+        reloadHistoryData()
+    }
+    
+    private func reloadHistoryData() {
+        do {
+            clothingHistory = try ClothingHistoryService.getHistory(limit: limit)
+            filteredHistory = [ClothingHistory]()
+        } catch {
+            print("Error in loading history data")
+        }
     }
     
     override func didReceiveMemoryWarning()
@@ -43,24 +55,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
-            return filteredCloset.count
+            return filteredHistory.count
         } else {
-            return closet.getHistory().count
+            return clothingHistory.count
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableCell: HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HistoryTableViewCell
         
-        let tempCloset: [Date: [Clothing]]!
+        let tempCloset: [ClothingHistory]!
         if isSearching {
-            tempCloset = filteredCloset
+            tempCloset = filteredHistory
         } else {
-            tempCloset = closet.getHistory()
+            tempCloset = clothingHistory
         }
         
-        let date: Date = Array(tempCloset.keys).sorted(by: >)[indexPath.row]
-        let clothes: [Clothing] = tempCloset[date]!
+        let date: Date = tempCloset[indexPath.row].date
+        let clothingImageIds: [String] = tempCloset[indexPath.row].clothingImageIds
         
         // Set label to the date
         let formatter = DateFormatter()
@@ -72,9 +84,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let aspectRatio: CGFloat = CGFloat(1.0)
         tableCell.imagesStackView.translatesAutoresizingMaskIntoConstraints = false
         // https://stackoverflow.com/questions/30728062/add-views-in-uistackview-programmatically
-        for clothing in clothes {
+        for imageId: String in clothingImageIds {
             let imageView: UIImageView = UIImageView()
-            imageView.image = UIImage(named: clothing.imageId!)
+            imageView.image = UIImage(named: imageId)
             imageView.heightAnchor.constraint(equalToConstant: tableCell.imagesStackView.frame.height).isActive = true
             imageView.widthAnchor.constraint(equalToConstant:
                 tableCell.imagesStackView.frame.height * aspectRatio).isActive = true
@@ -82,6 +94,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return tableCell
     }
+
     
     // MARK - Search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -91,20 +104,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             historyTable.reloadData()
         } else {
             isSearching = true
-            filteredCloset = filterCloset(byClothingName: searchBar.text!)
+            filteredHistory = filterHistory(byClothingName: searchBar.text!)
             historyTable.reloadData()
         }
     }
     
-    private func filterCloset(byClothingName searchName: String) -> [Date: [Clothing]] {
-        var filteredReturn: [Date: [Clothing]] = [Date: [Clothing]]()
-        for (date, clothingList) in closet.getHistory() {
-            print(date)
-            for clothingItem in clothingList {
-                if clothingItem.name!.lowercased().contains(searchName.lowercased()) {
-                    print("FILTER FOUND: " + String(describing: date))
-                    print(clothingList)
-                    filteredReturn[date] = clothingList
+    private func filterHistory(byClothingName searchName: String) -> [ClothingHistory] {
+        var filteredReturn: [ClothingHistory] = [ClothingHistory]()
+        for historyObject in clothingHistory {
+            for name in historyObject.clothingNames {
+                if name.lowercased().contains(searchName.lowercased()) {
+                    filteredReturn.append(historyObject)
                     break
                 }
             }
