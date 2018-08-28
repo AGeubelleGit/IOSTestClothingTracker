@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if run {
             print("Running Test")
             SQLiteDataStore.createTables(clothes: false, history: false)
-            SQLiteDataStore.clearTables(clothing: false, history: true)
+            SQLiteDataStore.clearTables(clothing: false, history: false)
             SQLiteDataStore.clothesInsertMockData(clothes: false, history: false)
-            SQLiteDataStore.printAll(clothes: true, history: false)
+            SQLiteDataStore.printAll(clothes: true, history: true)
             SQLiteDataStore.getHistoryTest(run: true)
             SQLiteDataStore.getClothesDictionaryTest(run: true)
         } else {

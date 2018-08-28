@@ -13,21 +13,21 @@
 		BC27E8C81E2B112B00EEFD90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC27E8C71E2B112B00EEFD90 /* Assets.xcassets */; };
 		BC27E8CB1E2B112B00EEFD90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC27E8C91E2B112B00EEFD90 /* LaunchScreen.storyboard */; };
 		BC27E8D31E2B19E100EEFD90 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC27E8D21E2B19E100EEFD90 /* CollectionViewCell.swift */; };
-		F02EC6E82134977200A2CE19 /* DataHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6E52134977200A2CE19 /* DataHelperProtocol.swift */; };
-		F02EC6E92134977200A2CE19 /* SQLiteDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6E62134977200A2CE19 /* SQLiteDataStore.swift */; };
-		F02EC6EA2134977200A2CE19 /* DataAccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6E72134977200A2CE19 /* DataAccessError.swift */; };
-		F02EC6F1213497CD00A2CE19 /* ClothingHistorySQLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6ED213497CD00A2CE19 /* ClothingHistorySQLObject.swift */; };
-		F02EC6F2213497CD00A2CE19 /* ClothingHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6EE213497CD00A2CE19 /* ClothingHistoryService.swift */; };
-		F02EC6F3213497CD00A2CE19 /* ClothingHistoryDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6EF213497CD00A2CE19 /* ClothingHistoryDataHelper.swift */; };
-		F02EC6F4213497CD00A2CE19 /* ClothingHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6F0213497CD00A2CE19 /* ClothingHistory.swift */; };
-		F02EC6FB213497E400A2CE19 /* Clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6F6213497E300A2CE19 /* Clothing.swift */; };
-		F02EC6FC213497E400A2CE19 /* ClothingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6F7213497E300A2CE19 /* ClothingService.swift */; };
-		F02EC6FD213497E400A2CE19 /* ClothingDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6F8213497E400A2CE19 /* ClothingDataHelper.swift */; };
-		F02EC6FE213497E400A2CE19 /* ClothingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6F9213497E400A2CE19 /* ClothingType.swift */; };
-		F02EC6FF213497E400A2CE19 /* ClothingSQLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC6FA213497E400A2CE19 /* ClothingSQLObject.swift */; };
 		F02EC749213498DA00A2CE19 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02EC73B213498CF00A2CE19 /* SQLite.framework */; };
 		F02EC74A213498E700A2CE19 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02EC73B213498CF00A2CE19 /* SQLite.framework */; };
 		F02EC74B213498E700A2CE19 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F02EC73B213498CF00A2CE19 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F02EC7652134E0A900A2CE19 /* ClothingHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7612134E0A800A2CE19 /* ClothingHistory.swift */; };
+		F02EC7662134E0A900A2CE19 /* ClothingHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7622134E0A800A2CE19 /* ClothingHistoryService.swift */; };
+		F02EC7672134E0A900A2CE19 /* ClothingHistoryDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7632134E0A800A2CE19 /* ClothingHistoryDataHelper.swift */; };
+		F02EC7682134E0A900A2CE19 /* ClothingHistorySQLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7642134E0A800A2CE19 /* ClothingHistorySQLObject.swift */; };
+		F02EC76E2134E0B000A2CE19 /* ClothingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7692134E0B000A2CE19 /* ClothingService.swift */; };
+		F02EC76F2134E0B000A2CE19 /* ClothingDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC76A2134E0B000A2CE19 /* ClothingDataHelper.swift */; };
+		F02EC7702134E0B000A2CE19 /* Clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC76B2134E0B000A2CE19 /* Clothing.swift */; };
+		F02EC7712134E0B000A2CE19 /* ClothingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC76C2134E0B000A2CE19 /* ClothingType.swift */; };
+		F02EC7722134E0B000A2CE19 /* ClothingSQLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC76D2134E0B000A2CE19 /* ClothingSQLObject.swift */; };
+		F02EC7762134E0B800A2CE19 /* DataHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7732134E0B800A2CE19 /* DataHelperProtocol.swift */; };
+		F02EC7772134E0B800A2CE19 /* DataAccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7742134E0B800A2CE19 /* DataAccessError.swift */; };
+		F02EC7782134E0B800A2CE19 /* SQLiteDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EC7752134E0B800A2CE19 /* SQLiteDataStore.swift */; };
 		F04F2997212E3A280072167F /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F2996212E3A280072167F /* HistoryViewController.swift */; };
 		F04F2999212E3EDA0072167F /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F2998212E3EDA0072167F /* HistoryTableViewCell.swift */; };
 		F073097B212C7E7100094A9C /* SectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F073097A212C7E7100094A9C /* SectionTitleView.swift */; };
@@ -115,19 +115,19 @@
 		BC27E8CA1E2B112B00EEFD90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC27E8CC1E2B112B00EEFD90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC27E8D21E2B19E100EEFD90 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		F02EC6E52134977200A2CE19 /* DataHelperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataHelperProtocol.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/SQLDatabaseUtils/DataHelperProtocol.swift; sourceTree = "<group>"; };
-		F02EC6E62134977200A2CE19 /* SQLiteDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLiteDataStore.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/SQLDatabaseUtils/SQLiteDataStore.swift; sourceTree = "<group>"; };
-		F02EC6E72134977200A2CE19 /* DataAccessError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataAccessError.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/SQLDatabaseUtils/DataAccessError.swift; sourceTree = "<group>"; };
-		F02EC6ED213497CD00A2CE19 /* ClothingHistorySQLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingHistorySQLObject.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/ClothingHistory/ClothingHistorySQLObject.swift; sourceTree = "<group>"; };
-		F02EC6EE213497CD00A2CE19 /* ClothingHistoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingHistoryService.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/ClothingHistory/ClothingHistoryService.swift; sourceTree = "<group>"; };
-		F02EC6EF213497CD00A2CE19 /* ClothingHistoryDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingHistoryDataHelper.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/ClothingHistory/ClothingHistoryDataHelper.swift; sourceTree = "<group>"; };
-		F02EC6F0213497CD00A2CE19 /* ClothingHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingHistory.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/ClothingHistory/ClothingHistory.swift; sourceTree = "<group>"; };
-		F02EC6F6213497E300A2CE19 /* Clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Clothing.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/Clothing/Clothing.swift; sourceTree = "<group>"; };
-		F02EC6F7213497E300A2CE19 /* ClothingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingService.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/Clothing/ClothingService.swift; sourceTree = "<group>"; };
-		F02EC6F8213497E400A2CE19 /* ClothingDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingDataHelper.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/Clothing/ClothingDataHelper.swift; sourceTree = "<group>"; };
-		F02EC6F9213497E400A2CE19 /* ClothingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingType.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/Clothing/ClothingType.swift; sourceTree = "<group>"; };
-		F02EC6FA213497E400A2CE19 /* ClothingSQLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClothingSQLObject.swift; path = ../../../../../../Downloads/TestSQL/TestSQL/Clothing/ClothingSQLObject.swift; sourceTree = "<group>"; };
 		F02EC730213498CE00A2CE19 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
+		F02EC7612134E0A800A2CE19 /* ClothingHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingHistory.swift; sourceTree = "<group>"; };
+		F02EC7622134E0A800A2CE19 /* ClothingHistoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingHistoryService.swift; sourceTree = "<group>"; };
+		F02EC7632134E0A800A2CE19 /* ClothingHistoryDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingHistoryDataHelper.swift; sourceTree = "<group>"; };
+		F02EC7642134E0A800A2CE19 /* ClothingHistorySQLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingHistorySQLObject.swift; sourceTree = "<group>"; };
+		F02EC7692134E0B000A2CE19 /* ClothingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingService.swift; sourceTree = "<group>"; };
+		F02EC76A2134E0B000A2CE19 /* ClothingDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingDataHelper.swift; sourceTree = "<group>"; };
+		F02EC76B2134E0B000A2CE19 /* Clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clothing.swift; sourceTree = "<group>"; };
+		F02EC76C2134E0B000A2CE19 /* ClothingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingType.swift; sourceTree = "<group>"; };
+		F02EC76D2134E0B000A2CE19 /* ClothingSQLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothingSQLObject.swift; sourceTree = "<group>"; };
+		F02EC7732134E0B800A2CE19 /* DataHelperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelperProtocol.swift; sourceTree = "<group>"; };
+		F02EC7742134E0B800A2CE19 /* DataAccessError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAccessError.swift; sourceTree = "<group>"; };
+		F02EC7752134E0B800A2CE19 /* SQLiteDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDataStore.swift; sourceTree = "<group>"; };
 		F04F2996212E3A280072167F /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		F04F2998212E3EDA0072167F /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		F073097A212C7E7100094A9C /* SectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleView.swift; sourceTree = "<group>"; };
@@ -184,9 +184,9 @@
 		F02EC6E42134976600A2CE19 /* SQLDatabaseUtils */ = {
 			isa = PBXGroup;
 			children = (
-				F02EC6E72134977200A2CE19 /* DataAccessError.swift */,
-				F02EC6E52134977200A2CE19 /* DataHelperProtocol.swift */,
-				F02EC6E62134977200A2CE19 /* SQLiteDataStore.swift */,
+				F02EC7742134E0B800A2CE19 /* DataAccessError.swift */,
+				F02EC7732134E0B800A2CE19 /* DataHelperProtocol.swift */,
+				F02EC7752134E0B800A2CE19 /* SQLiteDataStore.swift */,
 			);
 			path = SQLDatabaseUtils;
 			sourceTree = "<group>";
@@ -194,10 +194,10 @@
 		F02EC6EC213497BD00A2CE19 /* ClothingHistorySQL */ = {
 			isa = PBXGroup;
 			children = (
-				F02EC6F0213497CD00A2CE19 /* ClothingHistory.swift */,
-				F02EC6EF213497CD00A2CE19 /* ClothingHistoryDataHelper.swift */,
-				F02EC6EE213497CD00A2CE19 /* ClothingHistoryService.swift */,
-				F02EC6ED213497CD00A2CE19 /* ClothingHistorySQLObject.swift */,
+				F02EC7612134E0A800A2CE19 /* ClothingHistory.swift */,
+				F02EC7632134E0A800A2CE19 /* ClothingHistoryDataHelper.swift */,
+				F02EC7622134E0A800A2CE19 /* ClothingHistoryService.swift */,
+				F02EC7642134E0A800A2CE19 /* ClothingHistorySQLObject.swift */,
 			);
 			path = ClothingHistorySQL;
 			sourceTree = "<group>";
@@ -205,11 +205,11 @@
 		F02EC6F5213497D800A2CE19 /* ClothingSQL */ = {
 			isa = PBXGroup;
 			children = (
-				F02EC6F6213497E300A2CE19 /* Clothing.swift */,
-				F02EC6F8213497E400A2CE19 /* ClothingDataHelper.swift */,
-				F02EC6F7213497E300A2CE19 /* ClothingService.swift */,
-				F02EC6FA213497E400A2CE19 /* ClothingSQLObject.swift */,
-				F02EC6F9213497E400A2CE19 /* ClothingType.swift */,
+				F02EC76B2134E0B000A2CE19 /* Clothing.swift */,
+				F02EC76A2134E0B000A2CE19 /* ClothingDataHelper.swift */,
+				F02EC7692134E0B000A2CE19 /* ClothingService.swift */,
+				F02EC76D2134E0B000A2CE19 /* ClothingSQLObject.swift */,
+				F02EC76C2134E0B000A2CE19 /* ClothingType.swift */,
 			);
 			path = ClothingSQL;
 			sourceTree = "<group>";
@@ -387,24 +387,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F02EC6F3213497CD00A2CE19 /* ClothingHistoryDataHelper.swift in Sources */,
-				F02EC6FB213497E400A2CE19 /* Clothing.swift in Sources */,
 				F073097B212C7E7100094A9C /* SectionTitleView.swift in Sources */,
+				F02EC76F2134E0B000A2CE19 /* ClothingDataHelper.swift in Sources */,
 				F04F2999212E3EDA0072167F /* HistoryTableViewCell.swift in Sources */,
-				F02EC6E92134977200A2CE19 /* SQLiteDataStore.swift in Sources */,
-				F02EC6F4213497CD00A2CE19 /* ClothingHistory.swift in Sources */,
-				F02EC6FE213497E400A2CE19 /* ClothingType.swift in Sources */,
-				F02EC6FD213497E400A2CE19 /* ClothingDataHelper.swift in Sources */,
-				F02EC6F2213497CD00A2CE19 /* ClothingHistoryService.swift in Sources */,
+				F02EC7702134E0B000A2CE19 /* Clothing.swift in Sources */,
+				F02EC7662134E0A900A2CE19 /* ClothingHistoryService.swift in Sources */,
 				BC27E8C31E2B112B00EEFD90 /* ClothingCollectionViewController.swift in Sources */,
-				F02EC6FC213497E400A2CE19 /* ClothingService.swift in Sources */,
-				F02EC6E82134977200A2CE19 /* DataHelperProtocol.swift in Sources */,
+				F02EC7672134E0A900A2CE19 /* ClothingHistoryDataHelper.swift in Sources */,
+				F02EC7782134E0B800A2CE19 /* SQLiteDataStore.swift in Sources */,
+				F02EC7722134E0B000A2CE19 /* ClothingSQLObject.swift in Sources */,
+				F02EC7652134E0A900A2CE19 /* ClothingHistory.swift in Sources */,
 				BC27E8C11E2B112B00EEFD90 /* AppDelegate.swift in Sources */,
 				F04F2997212E3A280072167F /* HistoryViewController.swift in Sources */,
+				F02EC7682134E0A900A2CE19 /* ClothingHistorySQLObject.swift in Sources */,
+				F02EC7772134E0B800A2CE19 /* DataAccessError.swift in Sources */,
+				F02EC7712134E0B000A2CE19 /* ClothingType.swift in Sources */,
+				F02EC76E2134E0B000A2CE19 /* ClothingService.swift in Sources */,
 				BC27E8D31E2B19E100EEFD90 /* CollectionViewCell.swift in Sources */,
-				F02EC6FF213497E400A2CE19 /* ClothingSQLObject.swift in Sources */,
-				F02EC6F1213497CD00A2CE19 /* ClothingHistorySQLObject.swift in Sources */,
-				F02EC6EA2134977200A2CE19 /* DataAccessError.swift in Sources */,
+				F02EC7762134E0B800A2CE19 /* DataHelperProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
