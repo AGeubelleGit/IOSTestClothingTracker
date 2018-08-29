@@ -156,9 +156,9 @@ class SQLiteDataStore {
         }
     }
     
-    static func getClothesDictionaryTest(run: Bool) {
-        if run {
-            print("Getting Dictionary of Clothes")
+    static func getClothesDictionaryTest(unfiltered: Bool, notRecent: Bool) {
+        if unfiltered {
+            print("Getting Unfiltered Dictionary of Clothes")
             do {
                 let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getClothesDictionary()
                 for key: ClothingType in clothingDictionary.keys {
@@ -169,7 +169,22 @@ class SQLiteDataStore {
                     }
                 }
             } catch {
-                print("Error in getting clothing dictionary")
+                print("Error in getting unfiltered clothing dictionary")
+            }
+        }
+        if notRecent {
+            print("Getting not recent dictionary of clothes")
+            do {
+                let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getNotRecentlyWornClothes(type: ClothingType.shirt.rawValue, limit: 14)
+                for key: ClothingType in clothingDictionary.keys {
+                    print("----- " + key.rawValue + " -----")
+                    for clothingObject: Clothing in clothingDictionary[key]! {
+                        print(clothingObject.toString())
+                        print("")
+                    }
+                }
+            } catch {
+                print("Error in getting not recent clothing dictionary")
             }
         }
     }

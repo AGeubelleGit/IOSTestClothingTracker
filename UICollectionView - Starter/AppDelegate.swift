@@ -49,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SQLiteDataStore.createTables(clothes: false, history: false)
             SQLiteDataStore.clearTables(clothing: false, history: false)
             SQLiteDataStore.clothesInsertMockData(clothes: false, history: false)
-            SQLiteDataStore.printAll(clothes: true, history: true)
-            SQLiteDataStore.getHistoryTest(run: true)
-            SQLiteDataStore.getClothesDictionaryTest(run: true)
+            SQLiteDataStore.printAll(clothes: false, history: false)
+            SQLiteDataStore.getHistoryTest(run: false)
+            SQLiteDataStore.getClothesDictionaryTest(unfiltered: false, notRecent: false)
         } else {
             print("Skipping tests")
         }

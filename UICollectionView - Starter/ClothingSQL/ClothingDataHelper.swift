@@ -158,7 +158,13 @@ class ClothingDataHelper: DataHelperProtocol {
         }
         
         return retArray
-        
+    }
+    
+    static func runStatement(statement: String, bindings: Binding? ...) throws -> Statement {
+        guard let DB = SQLiteDataStore.sharedInstance.BBDB else {
+            throw DataAccessError.Datastore_Connection_Error
+        }
+        return try DB.run(statement, bindings)
     }
 }
 

@@ -38,13 +38,19 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
 {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var showRecentlyWornSwitch: UISwitch!
     
     // Identifiers
     let cellIdentifier: String = "cellItemID"
     let sectionTitleIdentifier: String = "SectionTitleView"
     
+    let segueToHistoryIdentifier: String = "FromClothingCollectionToHistory"
+    
     // Data source
     var clothingDictionary: [ClothingType: [Clothing]] = [ClothingType: [Clothing]]()
+    var filteredClothingDictionary: [ClothingType: [Clothing]] = [ClothingType: [Clothing]]()
+    
+    var isFiltering = false
     
     // MARK: - UIViewController delegate
     
@@ -78,7 +84,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         reloadClothingData()
     }
     
-    func reloadClothingData() {
+    private func reloadClothingData() {
         do {
             clothingDictionary = try ClothingService.getClothesDictionary()
         } catch {
@@ -100,7 +106,11 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
-        return clothingDictionary.count
+        if isFiltering {
+            return filteredClothingDictionary.count
+        } else {
+            return clothingDictionary.count
+        }
     }
     
     /**
@@ -109,7 +119,11 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return clothingDictionary[getClothingDictionaryKeyByInt(index: section)]!.count
+        if isFiltering {
+            return filteredClothingDictionary[getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: section)]!.count
+        } else {
+            return clothingDictionary[getClothingDictionaryKeyByInt(dictionary: clothingDictionary,index: section)]!.count
+        }
     }
     
     /**
@@ -125,7 +139,12 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         backgroundView.backgroundColor = UIColor.yellow
         collectionViewCell.selectedBackgroundView = backgroundView
         
-        let clothing: Clothing = getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row)
+        let clothing: Clothing
+        if isFiltering {
+            clothing = getClothing(dictionary: filteredClothingDictionary, sectionNumber: indexPath.section, sectionIndex: indexPath.row)
+        } else {
+            clothing = getClothing(dictionary: clothingDictionary, sectionNumber: indexPath.section, sectionIndex: indexPath.row)
+        }
         collectionViewCell.label.text = clothing.name
         collectionViewCell.image.image = UIImage(named: clothing.imageId!)
         
@@ -136,7 +155,11 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
         let endTab: String = "        " // Used to extend bottom border
-        sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(index: indexPath.section).rawValue + endTab
+        if isFiltering {
+            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: indexPath.section).rawValue + endTab
+        } else {
+            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: indexPath.section).rawValue + endTab
+        }
         sectionTitleView.setBottomBorder()
         return sectionTitleView
     }
@@ -176,43 +199,100 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
      */
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        print("Selected cell named: \(getClothing(sectionNumber: indexPath.section, sectionIndex: indexPath.row).name)")
+        if isFiltering {
+            print("Selected cell named: \(getClothing(dictionary: filteredClothingDictionary, sectionNumber: indexPath.section, sectionIndex: indexPath.row).name)")
+        } else {
+            print("Selected cell named: \(getClothing(dictionary: clothingDictionary, sectionNumber: indexPath.section, sectionIndex: indexPath.row).name)")
+        }
     }
     
     // MARK: - Helper methods
-    private func getClothingDictionaryKeyByInt(index: Int) -> ClothingType {
-        return Array(clothingDictionary.keys)[index]
+    private func getClothingDictionaryKeyByInt(dictionary: [ClothingType: [Clothing]], index: Int) -> ClothingType {
+        return Array(dictionary.keys)[index]
     }
     
-    private func getClothing(sectionNumber: Int, sectionIndex: Int) -> Clothing {
-        return clothingDictionary[getClothingDictionaryKeyByInt(index: sectionNumber)]![sectionIndex]
+    private func getClothing(dictionary: [ClothingType: [Clothing]], sectionNumber: Int, sectionIndex: Int) -> Clothing {
+        return dictionary[getClothingDictionaryKeyByInt(dictionary: dictionary, index: sectionNumber)]![sectionIndex]
+    }
+    
+    private func deselectAll() {
+        // Deselect all
+        if let selectedItemPaths = collectionView.indexPathsForSelectedItems {
+            for selectedItem in selectedItemPaths {
+                collectionView.deselectItem(at: selectedItem, animated: true)
+            }
+        }
     }
     
     // MARK: - UIToolbar: user interaction
-    @IBAction func addButtonTapped(_ sender: Any)
-    {
-//        var newCellValue: String = "NewImage"
-//        collectionViewDataSource.append(newCellValue)
-//        collectionView.reloadData()
-    }
-    
-    /**
-     When a user taps the "Remove" button
-    */
-    @IBAction func removeButtonTapped(_ sender: Any)
-    {
-        print(clothingDictionary)
-        // Do something.
-        
-    }
-    
-    /**
-     Called when the "Confirm" button is tapped.
-    */
     @IBAction func confirmButtonTapped(_ sender: Any)
     {
-        // Do Something.
+        if let selectedItemPaths = collectionView.indexPathsForSelectedItems
+        {
+            if selectedItemPaths.count == 0 {
+                print("Nothing was selected")
+                return
+            }
+            let currClothingDictionary: [ClothingType: [Clothing]]
+            if isFiltering {
+                currClothingDictionary = filteredClothingDictionary
+            } else {
+                currClothingDictionary = clothingDictionary
+            }
+            
+            // Get list of clothing sql ids that are selected and deselect rows.
+            var clothingIdsToAdd = [Int64]()
+            for selectedItem in selectedItemPaths {
+                let clothing: Clothing = getClothing(dictionary: currClothingDictionary, sectionNumber: selectedItem.section, sectionIndex: selectedItem.row)
+                clothingIdsToAdd.append(clothing.id!)
+            }
+            do {
+                if clothingIdsToAdd.count == selectedItemPaths.count {
+                    try ClothingHistoryService.addClothingSetToHistory(date: Date(), clothingIds: clothingIdsToAdd)
+                } else {
+                    print("Error in finding some of the clothing objects.")
+                    return
+                }
+            } catch {
+                print("Error in adding clothing set to history.")
+                return
+            }
+            deselectAll()
+            performSegue(withIdentifier: segueToHistoryIdentifier, sender: self)
+        } else { //selectedItemPaths = collectionView.indexPathsForSelectedItems
+            print("No items were selected")
+        }
+    }
+    
+    /**
+     Called when the "History" button is tapped.
+    */
+    @IBAction func toHistoryButtonTapped(_ sender: Any)
+    {
+        deselectAll()
+        performSegue(withIdentifier: segueToHistoryIdentifier, sender: self)
     }
 
+    /**
+     Called when show recently switch is changed
+    */
+    @IBAction func recentlyWornSwitchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            filterClothing(clothingType: ClothingType.shirt.rawValue, notWornInNumDays: 14)
+            isFiltering = true
+            collectionView.reloadData()
+        } else {
+            isFiltering = false
+            collectionView.reloadData()
+        }
+    }
+    
+    private func filterClothing(clothingType: String, notWornInNumDays: Int) {
+        do {
+            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(type: clothingType, limit: notWornInNumDays)
+        } catch {
+            print("error with filtering clothing \(error)")
+        }
+    }
 } // end class ViewController
 
