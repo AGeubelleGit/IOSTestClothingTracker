@@ -10,6 +10,7 @@ import UIKit
 
 class SectionTitleView: UICollectionReusableView {
     @IBOutlet weak var sectionTitleLabel: UILabel!
+    @IBOutlet weak var sectionHideRecentSwitch: UISwitch!
     
     var sectionTitle: String! {
         didSet {

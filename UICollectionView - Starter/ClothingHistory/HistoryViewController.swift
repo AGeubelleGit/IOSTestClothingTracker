@@ -86,7 +86,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // https://stackoverflow.com/questions/30728062/add-views-in-uistackview-programmatically
         for imageId: String in clothingImageIds {
             let imageView: UIImageView = UIImageView()
-            imageView.image = UIImage(named: imageId)
+            // TODO: delete me
+//            imageView.image = UIImage(named: imageId)
+            do {
+                imageView.image = try ImageUtils.getImage(imageName: imageId)
+            } catch {
+                print("Failed to get image with id: \(imageId) \(error)")
+            }
             imageView.heightAnchor.constraint(equalToConstant: tableCell.imagesStackView.frame.height).isActive = true
             imageView.widthAnchor.constraint(equalToConstant:
                 tableCell.imagesStackView.frame.height * aspectRatio).isActive = true

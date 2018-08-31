@@ -17,4 +17,8 @@ enum ClothingType: String {
     case pants = "Pants"
     case shorts = "Shorts"
     case other = "Other"
+    
+    static func getAll() -> [ClothingType] {
+        return [ClothingType.shirt, ClothingType.sweatshirt, ClothingType.jacket, ClothingType.pants, ClothingType.shorts, ClothingType.shoes, ClothingType.other]
+    }
 }

@@ -49,6 +49,15 @@ class ClothingDataHelper: DataHelperProtocol {
             throw DataAccessError.Datastore_Connection_Error
         }
         do {
+            let rows: [ClothingSQL] = (try findAll())!
+            for row in rows {
+                ImageUtils.deleteImage(imageName: row.imageId)
+            }
+        } catch {
+            print("Unable to get all rows to clear images")
+            return false
+        }
+        do {
             try DB.run(table.drop())
         } catch {
             print("unnable to drop clothing table")

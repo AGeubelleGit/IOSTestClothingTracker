@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import UIKit
 
 //http://masteringswift.blogspot.com/2015/09/create-data-access-layer-with.html
 class SQLiteDataStore {
@@ -86,7 +87,8 @@ class SQLiteDataStore {
             
             do {
                 for i in 0 ..< names.count {
-                    let insertedClothingObject = try ClothingService.insert(clothing: Clothing(id: 0, type: types[i], name: names[i], imageId: imageIds[i]))
+                    let image: UIImage = UIImage(named: imageIds[i])!
+                    let insertedClothingObject = try ClothingService.addClothingRow(clothingType: types[i], name: names[i], image: image)
                     print("id: \(insertedClothingObject.id) name: \(insertedClothingObject.name)")
                 }
             } catch {
@@ -175,7 +177,7 @@ class SQLiteDataStore {
         if notRecent {
             print("Getting not recent dictionary of clothes")
             do {
-                let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getNotRecentlyWornClothes(type: ClothingType.shirt.rawValue, limit: 14)
+                let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getNotRecentlyWornClothes(types: [ClothingType.shirt.rawValue], limit: 14)
                 for key: ClothingType in clothingDictionary.keys {
                     print("----- " + key.rawValue + " -----")
                     for clothingObject: Clothing in clothingDictionary[key]! {

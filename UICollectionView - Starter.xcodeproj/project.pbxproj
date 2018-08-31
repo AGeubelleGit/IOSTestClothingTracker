@@ -31,6 +31,9 @@
 		F04F2997212E3A280072167F /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F2996212E3A280072167F /* HistoryViewController.swift */; };
 		F04F2999212E3EDA0072167F /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F2998212E3EDA0072167F /* HistoryTableViewCell.swift */; };
 		F073097B212C7E7100094A9C /* SectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F073097A212C7E7100094A9C /* SectionTitleView.swift */; };
+		F08F7F85213715750098C8E2 /* AddClothingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08F7F84213715750098C8E2 /* AddClothingViewController.swift */; };
+		F0C7A3042137367B001BE85D /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C7A3032137367B001BE85D /* ImageUtils.swift */; };
+		F0C7A3062137381C001BE85D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C7A3052137381C001BE85D /* Errors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +134,9 @@
 		F04F2996212E3A280072167F /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		F04F2998212E3EDA0072167F /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		F073097A212C7E7100094A9C /* SectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleView.swift; sourceTree = "<group>"; };
+		F08F7F84213715750098C8E2 /* AddClothingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingViewController.swift; sourceTree = "<group>"; };
+		F0C7A3032137367B001BE85D /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		F0C7A3052137381C001BE85D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +173,8 @@
 		BC27E8BF1E2B112B00EEFD90 /* UICollectionView - Starter */ = {
 			isa = PBXGroup;
 			children = (
+				F0C7A2FC21373666001BE85D /* Utils */,
+				F08F7F7C2137153B0098C8E2 /* AddClothing */,
 				F02EC6F5213497D800A2CE19 /* ClothingSQL */,
 				F02EC6EC213497BD00A2CE19 /* ClothingHistorySQL */,
 				F02EC6E42134976600A2CE19 /* SQLDatabaseUtils */,
@@ -252,6 +260,23 @@
 				F04F2998212E3EDA0072167F /* HistoryTableViewCell.swift */,
 			);
 			path = ClothingHistory;
+			sourceTree = "<group>";
+		};
+		F08F7F7C2137153B0098C8E2 /* AddClothing */ = {
+			isa = PBXGroup;
+			children = (
+				F08F7F84213715750098C8E2 /* AddClothingViewController.swift */,
+			);
+			path = AddClothing;
+			sourceTree = "<group>";
+		};
+		F0C7A2FC21373666001BE85D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F0C7A3032137367B001BE85D /* ImageUtils.swift */,
+				F0C7A3052137381C001BE85D /* Errors.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +415,7 @@
 				F073097B212C7E7100094A9C /* SectionTitleView.swift in Sources */,
 				F02EC76F2134E0B000A2CE19 /* ClothingDataHelper.swift in Sources */,
 				F04F2999212E3EDA0072167F /* HistoryTableViewCell.swift in Sources */,
+				F0C7A3042137367B001BE85D /* ImageUtils.swift in Sources */,
 				F02EC7702134E0B000A2CE19 /* Clothing.swift in Sources */,
 				F02EC7662134E0A900A2CE19 /* ClothingHistoryService.swift in Sources */,
 				BC27E8C31E2B112B00EEFD90 /* ClothingCollectionViewController.swift in Sources */,
@@ -397,7 +423,9 @@
 				F02EC7782134E0B800A2CE19 /* SQLiteDataStore.swift in Sources */,
 				F02EC7722134E0B000A2CE19 /* ClothingSQLObject.swift in Sources */,
 				F02EC7652134E0A900A2CE19 /* ClothingHistory.swift in Sources */,
+				F08F7F85213715750098C8E2 /* AddClothingViewController.swift in Sources */,
 				BC27E8C11E2B112B00EEFD90 /* AppDelegate.swift in Sources */,
+				F0C7A3062137381C001BE85D /* Errors.swift in Sources */,
 				F04F2997212E3A280072167F /* HistoryViewController.swift in Sources */,
 				F02EC7682134E0A900A2CE19 /* ClothingHistorySQLObject.swift in Sources */,
 				F02EC7772134E0B800A2CE19 /* DataAccessError.swift in Sources */,

@@ -39,16 +39,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        runTests(run: false)
+        runTests(run: true)
         return true
     }
     
     private func runTests(run: Bool) {
         if run {
             print("Running Test")
-            SQLiteDataStore.createTables(clothes: false, history: false)
-            SQLiteDataStore.clearTables(clothing: false, history: false)
-            SQLiteDataStore.clothesInsertMockData(clothes: false, history: false)
+            SQLiteDataStore.createTables(clothes: true, history: true)
+            SQLiteDataStore.clearTables(clothing: true, history: true)
+            SQLiteDataStore.clothesInsertMockData(clothes: true, history: true)
             SQLiteDataStore.printAll(clothes: false, history: false)
             SQLiteDataStore.getHistoryTest(run: false)
             SQLiteDataStore.getClothesDictionaryTest(unfiltered: false, notRecent: false)

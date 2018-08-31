@@ -50,6 +50,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     var clothingDictionary: [ClothingType: [Clothing]] = [ClothingType: [Clothing]]()
     var filteredClothingDictionary: [ClothingType: [Clothing]] = [ClothingType: [Clothing]]()
     
+    var filterTypes: [ClothingType: Bool] = [ClothingType: Bool]()
     var isFiltering = false
     
     // MARK: - UIViewController delegate
@@ -80,8 +81,14 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         collectionView.dataSource = self
         
         collectionView.allowsMultipleSelection = true
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("View will appear")
         reloadClothingData()
+        filterTypes.removeAll()
+        isFiltering = false
+        collectionView.reloadData()
     }
     
     private func reloadClothingData() {
@@ -146,20 +153,42 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
             clothing = getClothing(dictionary: clothingDictionary, sectionNumber: indexPath.section, sectionIndex: indexPath.row)
         }
         collectionViewCell.label.text = clothing.name
-        collectionViewCell.image.image = UIImage(named: clothing.imageId!)
+        do {
+            collectionViewCell.image.image = try ImageUtils.getImage(imageName: clothing.imageId)
+        } catch {
+            print("Failed to get image with id: \(clothing.imageId) \(error)")
+        }
         
         return collectionViewCell
     }
     
     // Section Header view
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
+//        let endTab: String = "        " // Used to extend bottom border
+//        if isFiltering {
+//            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: indexPath.section).rawValue + endTab
+//        } else {
+//            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: indexPath.section).rawValue + endTab
+//        }
+//        sectionTitleView.setBottomBorder()
+//        return sectionTitleView
+//    }
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
         let endTab: String = "        " // Used to extend bottom border
+        let sectionTitleType: ClothingType
         if isFiltering {
-            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: indexPath.section).rawValue + endTab
+            sectionTitleType = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: indexPath.section)
         } else {
-            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: indexPath.section).rawValue + endTab
+            sectionTitleType = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: indexPath.section)
         }
+        
+        sectionTitleView.sectionTitle = sectionTitleType.rawValue + endTab
+        sectionTitleView.sectionHideRecentSwitch.setOn(filterTypes[sectionTitleType] != nil && filterTypes[sectionTitleType]!, animated: false)
+        sectionTitleView.sectionHideRecentSwitch.tag = indexPath.section
+        sectionTitleView.sectionHideRecentSwitch.addTarget(self, action: #selector(sectionSwitchDidChange(_:)), for: .touchUpInside)
         sectionTitleView.setBottomBorder()
         return sectionTitleView
     }
@@ -278,7 +307,7 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
     */
     @IBAction func recentlyWornSwitchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
-            filterClothing(clothingType: ClothingType.shirt.rawValue, notWornInNumDays: 14)
+            filterClothing(clothingTypes: [ClothingType.shirt.rawValue, ClothingType.pants.rawValue], notWornInNumDays: 14)
             isFiltering = true
             collectionView.reloadData()
         } else {
@@ -287,12 +316,54 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         }
     }
     
-    private func filterClothing(clothingType: String, notWornInNumDays: Int) {
+    private func filterClothing(clothingTypes: [String], notWornInNumDays: Int) {
         do {
-            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(type: clothingType, limit: notWornInNumDays)
+            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: clothingTypes, limit: notWornInNumDays)
         } catch {
             print("error with filtering clothing \(error)")
         }
     }
+    
+    @IBAction func sectionSwitchDidChange(_ sender: UISwitch) {
+        print("Button function called")
+        let filterType: ClothingType
+        if isFiltering {
+            filterType = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: sender.tag)
+        } else {
+            filterType = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: sender.tag)
+        }
+        filterTypes[filterType] = sender.isOn
+        filterClothing(notWornInNumDays: 14)
+    }
+    
+    private func filterClothing(notWornInNumDays: Int) {
+        var filterTypeStrings: [String] = [String]()
+        for type: ClothingType in filterTypes.keys {
+            if filterTypes[type]! {
+                filterTypeStrings.append(type.rawValue)
+            }
+        }
+        if filterTypeStrings.count > 0 {
+            print("Filtering by \(filterTypeStrings)")
+            isFiltering = true
+            do {
+                filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: filterTypeStrings, limit: notWornInNumDays)
+            } catch {
+                print("error with filtering clothing \(error)")
+            }
+            //collectionView.reloadData()
+        } else {
+            print("Not filtering")
+            isFiltering = false
+        }
+        // Wait for the animation of the switch to finish before feloading the data
+        let timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(self.reloadData), userInfo: nil, repeats: false)
+    }
+    
+    @objc func reloadData() {
+        collectionView.reloadData()
+    }
+    
+    
 } // end class ViewController
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import UIKit
 
 class ClothingService {
     
@@ -38,21 +39,22 @@ class ClothingService {
     /*
      Get all clothes that have not been deleted and not worn in last (limit) number of days
     */
-    static func getNotRecentlyWornClothes(type: String, limit: Int) throws -> [ClothingType: [Clothing]] {
+    static func getNotRecentlyWornClothes(types: [String], limit: Int) throws -> [ClothingType: [Clothing]] {
         let statement: Statement
         do {
+            var arrayAsString: String = types.description
+            arrayAsString = arrayAsString.replacingOccurrences(of: "[", with: "")
+            arrayAsString = arrayAsString.replacingOccurrences(of: "]", with: "")
             // select all clothes whose ids are not in the last <limit> day history.
-            let statementString = """
-            SELECT *
-            FROM Clothing
-            WHERE deleted=0 AND
-            (Clothing.type!=(?)
-            OR Clothing.clothingId NOT IN
-            (SELECT ClothingHistory.ClothingId
-            FROM ClothingHistory
-            WHERE julianday('now') - julianday(ClothingHistory.date) < (?)));
-            """
-            statement = try ClothingDataHelper.runStatement(statement: statementString, bindings: type, limit)
+            let statementStringTest = "SELECT * " +
+                "FROM Clothing " +
+                "WHERE deleted=0 AND " +
+                "(Clothing.type NOT IN (" + arrayAsString + ") " +
+            "OR Clothing.clothingId NOT IN " +
+            "(SELECT ClothingHistory.ClothingId " +
+            "FROM ClothingHistory " +
+            "WHERE julianday('now') - julianday(ClothingHistory.date) < (?)));"
+            statement = try ClothingDataHelper.runStatement(statement: statementStringTest, bindings: limit)
         } catch {
             print("Error in getting clothes from SQL database \(error)")
             return [ClothingType: [Clothing]]()
@@ -95,5 +97,12 @@ class ClothingService {
         indexes["name"] = statement.columnNames.index(of: "name")!
         indexes["imageId"] = statement.columnNames.index(of: "imageId")!
         return indexes
+    }
+    
+    static func addClothingRow(clothingType: ClothingType, name: String, image: UIImage) throws -> Clothing {
+        let uniqueImageName = name + "-" + NSUUID().uuidString.lowercased()
+        ImageUtils.saveImage(image: image, imageName: uniqueImageName)
+        let clothingObject: Clothing = Clothing(id: 0, type: clothingType, name: name, imageId: uniqueImageName)
+        return try ClothingService.insert(clothing: clothingObject)
     }
 }
