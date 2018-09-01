@@ -36,7 +36,6 @@ class ClothingService {
         return clothingDictionary
     }
     
-    
     static func addExtraEmptySections(inputDict: [ClothingType: [Clothing]], types: [ClothingType]) -> [ClothingType: [Clothing]] {
         var outputDict = inputDict
         for type: ClothingType in types {
@@ -64,7 +63,9 @@ class ClothingService {
             "OR Clothing.clothingId NOT IN " +
             "(SELECT ClothingHistory.ClothingId " +
             "FROM ClothingHistory " +
-            "WHERE julianday('now') - julianday(ClothingHistory.date) < (?)));"
+            "WHERE julianday('now') - julianday(ClothingHistory.date) < (?)" +
+            "AND ClothingHistory.deleted = 0" + 
+            "));"
             statement = try ClothingDataHelper.runStatement(statement: statementStringTest, bindings: limit)
         } catch {
             print("Error in getting clothes from SQL database \(error)")
@@ -115,5 +116,11 @@ class ClothingService {
         ImageUtils.saveImage(image: image, imageName: uniqueImageName)
         let clothingObject: Clothing = Clothing(id: 0, type: clothingType, name: name, imageId: uniqueImageName)
         return try ClothingService.insert(clothing: clothingObject)
+    }
+    
+    static func deleteClothingRow(clothingObject: Clothing) throws -> Void {
+        ImageUtils.deleteImage(imageName: clothingObject.imageId)
+        let clothingSQL: ClothingSQL = ClothingSQL(clothingId: clothingObject.id)
+        try ClothingDataHelper.delete(item: clothingSQL)
     }
 }

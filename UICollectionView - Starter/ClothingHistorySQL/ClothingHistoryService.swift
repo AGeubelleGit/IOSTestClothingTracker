@@ -99,4 +99,11 @@ class ClothingHistoryService {
         }
         return createdRowIds
     }
+    
+    static func deleteHistoryRow(historyObject: ClothingHistory) throws -> Void {
+        let currHistoryRows: [ClothingHistorySQL] = (try ClothingHistoryHelper.findAllByHistoryId(historyId: historyObject.id))!
+        for row: ClothingHistorySQL in currHistoryRows {
+            try ClothingHistoryHelper.delete(item: row)
+        }
+    }
 }

@@ -129,24 +129,23 @@
                             <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="6vo-hw-l8n">
                                 <rect key="frame" x="16" y="30" width="343" height="35"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nw-84-08w">
+                                        <rect key="frame" x="0.0" y="2.5" width="45" height="30"/>
+                                        <state key="normal" title="Delete"/>
+                                        <connections>
+                                            <action selector="deleteButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kVw-QH-zva"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmf-Zj-TeH">
-                                        <rect key="frame" x="0.0" y="2.5" width="30" height="30"/>
+                                        <rect key="frame" x="313" y="2.5" width="30" height="30"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
                                             <segue destination="XrD-UL-hyP" kind="show" id="jzR-5o-QZl"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eav-7T-Xdg">
-                                        <rect key="frame" x="103" y="0.0" width="240" height="35"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="eav-7T-Xdg" secondAttribute="trailing" id="MMg-5X-KZA"/>
-                                    <constraint firstItem="eav-7T-Xdg" firstAttribute="top" secondItem="6vo-hw-l8n" secondAttribute="top" id="OxH-u4-Q7N"/>
                                     <constraint firstAttribute="height" constant="35" id="eRz-45-5ke"/>
-                                    <constraint firstItem="eav-7T-Xdg" firstAttribute="leading" secondItem="kmf-Zj-TeH" secondAttribute="trailing" constant="73" id="msQ-Lm-Zgw"/>
-                                    <constraint firstAttribute="bottom" secondItem="eav-7T-Xdg" secondAttribute="bottom" id="ypx-n3-1Wu"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -401,6 +400,7 @@
         <image name="jeans" width="112" height="112"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="jzR-5o-QZl"/>
         <segue reference="MUW-ug-nJm"/>
     </inferredMetricsTieBreakers>
 </document>

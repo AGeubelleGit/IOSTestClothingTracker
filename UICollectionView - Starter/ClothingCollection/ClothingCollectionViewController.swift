@@ -161,19 +161,6 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         
         return collectionViewCell
     }
-    
-    // Section Header view
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
-//        let endTab: String = "        " // Used to extend bottom border
-//        if isFiltering {
-//            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: filteredClothingDictionary, index: indexPath.section).rawValue + endTab
-//        } else {
-//            sectionTitleView.sectionTitle = getClothingDictionaryKeyByInt(dictionary: clothingDictionary, index: indexPath.section).rawValue + endTab
-//        }
-//        sectionTitleView.setBottomBorder()
-//        return sectionTitleView
-//    }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitleView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionTitleIdentifier, for: indexPath) as! SectionTitleView
@@ -301,28 +288,6 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         deselectAll()
         performSegue(withIdentifier: segueToHistoryIdentifier, sender: self)
     }
-
-//    /**
-//     Called when show recently switch is changed
-//    */
-//    @IBAction func recentlyWornSwitchValueChanged(_ sender: UISwitch) {
-//        if sender.isOn {
-//            filterClothing(clothingTypes: [ClothingType.shirt.rawValue, ClothingType.pants.rawValue], notWornInNumDays: 14)
-//            isFiltering = true
-//            collectionView.reloadData()
-//        } else {
-//            isFiltering = false
-//            collectionView.reloadData()
-//        }
-//    }
-//
-//    private func filterClothing(clothingTypes: [String], notWornInNumDays: Int) {
-//        do {
-//            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: clothingTypes, limit: notWornInNumDays)
-//        } catch {
-//            print("error with filtering clothing \(error)")
-//        }
-//    }
     
     @IBAction func sectionSwitchDidChange(_ sender: UISwitch) {
         print("Button function called")
@@ -347,19 +312,51 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
             print("Filtering by \(filterTypeStrings)")
             isFiltering = true
             do {
-//                filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: filterTypeStrings, limit: notWornInNumDays)
-
                 filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(filterTypes: filterTypeStrings, allTypes: Array(clothingDictionary.keys), limit: notWornInNumDays)
             } catch {
                 print("error with filtering clothing \(error)")
             }
-            //collectionView.reloadData()
         } else {
             print("Not filtering")
             isFiltering = false
         }
         // Wait for the animation of the switch to finish before feloading the data
         let timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(self.reloadData), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        if let selectedItemPaths = collectionView.indexPathsForSelectedItems
+        {
+            if selectedItemPaths.count == 0 {
+                print("Nothing was selected")
+                return
+            }
+            let currClothingDictionary: [ClothingType: [Clothing]]
+            if isFiltering {
+                currClothingDictionary = filteredClothingDictionary
+            } else {
+                currClothingDictionary = clothingDictionary
+            }
+            
+            var clothing: Clothing
+            for selectedItem in selectedItemPaths {
+                do {
+                    clothing = getClothing(dictionary: currClothingDictionary, sectionNumber: selectedItem.section, sectionIndex: selectedItem.row)
+                    try ClothingService.deleteClothingRow(clothingObject: clothing)
+                } catch {
+                    print("Error in deleting \(clothing)")
+                }
+            }
+            deselectAll()
+            isFiltering = false
+            filterTypes = [ClothingType: Bool]()
+            reloadClothingData()
+            collectionView.reloadData()
+        } else { //selectedItemPaths = collectionView.indexPathsForSelectedItems
+            print("No items were selected")
+        }
+        
+        
     }
     
     @objc func reloadData() {

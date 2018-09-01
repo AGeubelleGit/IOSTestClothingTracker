@@ -162,7 +162,20 @@ class ClothingHistoryHelper: DataHelperProtocol {
         }
         
         return retArray
+    }
+    
+    static func findAllByHistoryId(historyId: Int64) throws -> [T]? {
+        guard let DB = SQLiteDataStore.sharedInstance.BBDB else {
+            throw DataAccessError.Datastore_Connection_Error
+        }
+        var retArray: [T] = []
+        let query = table.filter(clothingHistoryId == historyId)
+        let items = try DB.prepare(query)
+        for item in items {
+            retArray.append(ClothingHistorySQL(rowId: item[rowId], clothingHistoryId: item[clothingHistoryId], clothingId: item[clothingId], date: item[date], deleted: item[deleted]))
+        }
         
+        return retArray
     }
     
     static func runStatement(statement: String, bindings: Binding ...) throws -> Statement {

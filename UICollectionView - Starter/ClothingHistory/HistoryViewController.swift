@@ -86,8 +86,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // https://stackoverflow.com/questions/30728062/add-views-in-uistackview-programmatically
         for imageId: String in clothingImageIds {
             let imageView: UIImageView = UIImageView()
-            // TODO: delete me
-//            imageView.image = UIImage(named: imageId)
             do {
                 imageView.image = try ImageUtils.getImage(imageName: imageId)
             } catch {
@@ -99,6 +97,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableCell.imagesStackView.addArrangedSubview(imageView)
         }
         return tableCell
+    }
+    
+    // Delete table view row
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            do {
+                if isSearching {
+                    try ClothingHistoryService.deleteHistoryRow(historyObject: filteredHistory[indexPath.row])
+                    filteredHistory.remove(at: indexPath.row)
+                } else {
+                    try ClothingHistoryService.deleteHistoryRow(historyObject: clothingHistory[indexPath.row])
+                    clothingHistory.remove(at: indexPath.row)
+                }
+                self.historyTable.deleteRows(at: [indexPath], with: .automatic)
+            } catch {
+                print("Error in deleting history row")
+            }
+        }
     }
 
     
