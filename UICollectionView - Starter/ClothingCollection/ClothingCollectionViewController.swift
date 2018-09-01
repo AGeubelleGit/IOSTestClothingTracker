@@ -302,27 +302,27 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
         performSegue(withIdentifier: segueToHistoryIdentifier, sender: self)
     }
 
-    /**
-     Called when show recently switch is changed
-    */
-    @IBAction func recentlyWornSwitchValueChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            filterClothing(clothingTypes: [ClothingType.shirt.rawValue, ClothingType.pants.rawValue], notWornInNumDays: 14)
-            isFiltering = true
-            collectionView.reloadData()
-        } else {
-            isFiltering = false
-            collectionView.reloadData()
-        }
-    }
-    
-    private func filterClothing(clothingTypes: [String], notWornInNumDays: Int) {
-        do {
-            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: clothingTypes, limit: notWornInNumDays)
-        } catch {
-            print("error with filtering clothing \(error)")
-        }
-    }
+//    /**
+//     Called when show recently switch is changed
+//    */
+//    @IBAction func recentlyWornSwitchValueChanged(_ sender: UISwitch) {
+//        if sender.isOn {
+//            filterClothing(clothingTypes: [ClothingType.shirt.rawValue, ClothingType.pants.rawValue], notWornInNumDays: 14)
+//            isFiltering = true
+//            collectionView.reloadData()
+//        } else {
+//            isFiltering = false
+//            collectionView.reloadData()
+//        }
+//    }
+//
+//    private func filterClothing(clothingTypes: [String], notWornInNumDays: Int) {
+//        do {
+//            filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: clothingTypes, limit: notWornInNumDays)
+//        } catch {
+//            print("error with filtering clothing \(error)")
+//        }
+//    }
     
     @IBAction func sectionSwitchDidChange(_ sender: UISwitch) {
         print("Button function called")
@@ -347,7 +347,9 @@ class ClothingCollectionViewController: UIViewController, UICollectionViewDelega
             print("Filtering by \(filterTypeStrings)")
             isFiltering = true
             do {
-                filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: filterTypeStrings, limit: notWornInNumDays)
+//                filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(types: filterTypeStrings, limit: notWornInNumDays)
+
+                filteredClothingDictionary = try ClothingService.getNotRecentlyWornClothes(filterTypes: filterTypeStrings, allTypes: Array(clothingDictionary.keys), limit: notWornInNumDays)
             } catch {
                 print("error with filtering clothing \(error)")
             }

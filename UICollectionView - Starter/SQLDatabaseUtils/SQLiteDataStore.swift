@@ -177,7 +177,7 @@ class SQLiteDataStore {
         if notRecent {
             print("Getting not recent dictionary of clothes")
             do {
-                let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getNotRecentlyWornClothes(types: [ClothingType.shirt.rawValue], limit: 14)
+                let clothingDictionary: [ClothingType: [Clothing]] = try ClothingService.getNotRecentlyWornClothes(filterTypes: [ClothingType.shirt.rawValue], allTypes: [ClothingType.shirt], limit: 14)
                 for key: ClothingType in clothingDictionary.keys {
                     print("----- " + key.rawValue + " -----")
                     for clothingObject: Clothing in clothingDictionary[key]! {

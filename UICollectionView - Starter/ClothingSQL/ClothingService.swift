@@ -36,13 +36,24 @@ class ClothingService {
         return clothingDictionary
     }
     
+    
+    static func addExtraEmptySections(inputDict: [ClothingType: [Clothing]], types: [ClothingType]) -> [ClothingType: [Clothing]] {
+        var outputDict = inputDict
+        for type: ClothingType in types {
+            if outputDict[type] == nil {
+                outputDict[type] = [Clothing]()
+            }
+        }
+        return outputDict
+    }
+    
     /*
      Get all clothes that have not been deleted and not worn in last (limit) number of days
     */
-    static func getNotRecentlyWornClothes(types: [String], limit: Int) throws -> [ClothingType: [Clothing]] {
+    static func getNotRecentlyWornClothes(filterTypes: [String], allTypes: [ClothingType], limit: Int) throws -> [ClothingType: [Clothing]] {
         let statement: Statement
         do {
-            var arrayAsString: String = types.description
+            var arrayAsString: String = filterTypes.description
             arrayAsString = arrayAsString.replacingOccurrences(of: "[", with: "")
             arrayAsString = arrayAsString.replacingOccurrences(of: "]", with: "")
             // select all clothes whose ids are not in the last <limit> day history.
@@ -84,7 +95,7 @@ class ClothingService {
             }
         }
         
-        return clothingDictionary
+        return addExtraEmptySections(inputDict: clothingDictionary, types: allTypes)
     }
     
     /*

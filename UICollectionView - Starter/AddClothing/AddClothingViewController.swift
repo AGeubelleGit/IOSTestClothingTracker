@@ -14,13 +14,14 @@ class AddClothingViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameInput: UITextField!
     @IBOutlet weak var clothingTypePicker: UIPickerView!
-    @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var confirmButton: UIBarButtonItem!
     
     var imagePickerController : UIImagePickerController!
     
     var pickerDataSource: [ClothingType] = [ClothingType]()
     
     var currImage: UIImage? = nil
+    var defaultImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +31,20 @@ class AddClothingViewController: UIViewController, UINavigationControllerDelegat
         
         nameInput.delegate = self
         
+        defaultImage = UIImage(named: "defaultClothingImage")
+        
         confirmButton.isEnabled = false
         currImage = nil
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        confirmButton.isEnabled = false
+        currImage = nil
+        nameInput.text = ""
+        clothingTypePicker.selectedRow(inComponent: 0)
+        imageView.image = defaultImage
+        confirmButton.isEnabled = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,6 +87,7 @@ class AddClothingViewController: UIViewController, UINavigationControllerDelegat
     
     // On confirm
     @IBAction func onConfirmButtonPressed(_ sender: Any) {
+        print("Button Pressed")
         let name: String
         if nameInput.text == nil {
             name = ""
@@ -90,5 +104,6 @@ class AddClothingViewController: UIViewController, UINavigationControllerDelegat
         } else {
             print("Need to take an image.")
         }
+        performSegue(withIdentifier: "BackToSelectClothesSegue", sender: self)
     }
 }
